@@ -6,7 +6,7 @@ const {
         GraphQLSchema, 
         GraphQLID, 
         GraphQLInt, 
-        GraphQLList
+        GraphQLList,
     } = graphql;
 
 const Movie = require('../models/movie');
@@ -89,6 +89,37 @@ const Mutation = new GraphQLObjectType({
                 return Movie.findByIdAndRemove(args.id)
             }
         },
+        updateDirector: {
+            type: DirectorType,
+            args: {
+                id: {type: GraphQLID},
+                name: {type: GraphQLString},
+                age: {type: GraphQLInt}
+            },
+            resolve(parent, args){
+                return Director.findByIdAndUpdate(
+                    args.id,
+                    {$set: {name: args.name, age: args.age}},
+                    {new: true}
+                );
+            }
+        },
+        updateMovie: {
+            type: MovieType,
+            args: {
+                id: {type: GraphQLID},
+                name: {type: GraphQLString},
+                genre: {type: GraphQLString},
+                directorId: {type: GraphQLID}
+            },
+            resolve(parent, args){
+                return Movie.findByIdAndUpdate(
+                    args.id,
+                    {$set: {name: args.name, genre: args.genre, directorId: args.directorId}},
+                    {new: true}
+                )
+            }
+        }
     }
 })
 
