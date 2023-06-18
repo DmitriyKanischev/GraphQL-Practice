@@ -9,9 +9,9 @@ const PORT = 3005;
 
 mongoose.connect('mongodb+srv://ddkanischev:Pass123@cluster0.iwcdzve.mongodb.net/?retryWrites=true&w=majority', {useNewUrlParser: true, useUnifiedTopology: true, dbName: 'graphql'})
 
-app.use(cors())                 //First request
+app.use(cors())                                 //First request
 
-app.use('/graphql', graphqlHTTP({           //Second request
+app.use('/graphql', graphqlHTTP({               //Second request
     schema,
     graphiql: true
 }));
